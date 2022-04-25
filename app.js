@@ -1,8 +1,6 @@
-// left off on 9.5.4 Write a File Using Promises
-
-const fs = require('fs');
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template');
+const { writeFile, copyFile } = require('./utils/generate-site');
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -128,7 +126,6 @@ Add a New Project
         });
 };
 
-
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
@@ -147,20 +144,3 @@ promptUser()
     .catch(err => {
         console.log(err);
     });
-
-fs.writeFile('./dist/index.html', pageHTML, err => {
-    if (err) {
-        console.log(err);
-        return;
-    }
-    console.log('Page created! Check out index.html in this directory to see it!');
-
-    fs.copyFile('./src/style.css', './dist/style.css', err => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log('Style sheet copied successfully!');
-    });
-});
-
